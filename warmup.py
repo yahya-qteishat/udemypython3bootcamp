@@ -67,13 +67,6 @@ class Deck:
 		return self.all_cards.pop()
 
 
-new_deck = Deck()
-new_deck.shuffle()
-
-
-
-mycard = new_deck.deal_one()
-
 #print(mycard)
 
 ''' player class: this class will be used to hold a player's 
@@ -113,17 +106,78 @@ class Player:
 		return 'player {} has {} cards.'.format(self.name,len(self.all_cards))
 
 
+### GAME LOGIC
 
-new_player = Player("jose")
-new_player.add_cards(mycard)
+''' we planned classes around the logic.
 
-print(new_player)
+#game setup: creating the players '''
 
-new_player.remove_one()
+player_one = Player("One")
+player_two = Player('Two)')
 
-print(new_player)
+new_deck = Deck()
+new_deck.shuffle()
+
+#deal cards
+for x in range(26):
+	player_one.add_cards(new_deck.deal_one())
+	player.two.add_cards(new_deck.deal_one())
+
+game_on = True
+
+round_num = 0
+
+while game_on:
+	round_num += 1
+	print("round {}".format(round_num))
+
+	if len(player_one.all_cards) == 0:
+		print("Player 1 out of cards, player two wins!")
+		game_on = False
+		break
+	if len(player_two.all_cards) == 0:
+		print("Player 2 out of cards, player one wins!")
+		game_on = False
+		break
+
+	# start a new round
+
+	player_one_cardsinplay = []
+	player_one_cardsinplay.append(player_one.remove_one())
+
+	player_two_cardsinplay = []
+	player_two_cardsinplay.append(player_two.remove_one())
 
 
+	# check the cards against each other
+
+	at_war = True
+
+	while at_war:
+		if player_two_cardsinplay[-1].value > player_two_cardsinplay[-1].value:
+			player_one.add_cards(player_one_cardsinplay)
+			plauer_one.add_cards(player_two_cardsinplay)
+			at_war = False
+		elif player_two_cardsinplay[-1].value < player_two_cardsinplay[-1].value:
+			player_two.add_cards(player_one_cardsinplay)
+			plauer_two.add_cards(player_two_cardsinplay)
+			at_war = False
+		else:
+			print("War")
+			if len(player_one.all_cards) < 3:
+				print("Player one cant declare war")
+				print("Player two wins")
+				game_on = False
+				break
+			elif len(player_two.all_cards) < 3:
+				print("Player two cant declare war")
+				print("Player one wins")
+				game_on = False
+				break
+			else:
+				for num in range(5):
+					player_one_cardsinplay.append(player_one.remove_one())
+					player_one_cardsinplay.append(player_one.remove_one())
 
 
 
